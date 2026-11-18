@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Painel Principal";
+}
+<h1>Sistema de Gestão da Biblioteca Escolar</h1>
+<p>Bem-vindo ao <strong>BiblioTech</strong>, desenvolvido com arquitetura MVC, princípios SOLID e relacionamento muitos-para-muitos (N:N) entre Livros e Autores.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Indicador do Acervo</th>
+            <th>Total Registrado</th>
+            <th>Acesso Rápido</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Obras Catalogadas</td>
+            <td><strong>@ViewBag.TotalLivros</strong></td>
+            <td><a class="btn" asp-controller="Livros" asp-action="Index">Gerenciar Livros</a></td>
+        </tr>
+        <tr>
+            <td>Autores Cadastrados</td>
+            <td><strong>@ViewBag.TotalAutores</strong></td>
+            <td><a class="btn" asp-controller="Autores" asp-action="Index">Gerenciar Autores</a></td>
+        </tr>
+        <tr>
+            <td>Empréstimos em Aberto</td>
+            <td><strong>@ViewBag.EmprestimosAtivos</strong></td>
+            <td><a class="btn" asp-controller="Emprestimos" asp-action="Index">Gerenciar Empréstimos</a></td>
+        </tr>
+    </tbody>
+</table>

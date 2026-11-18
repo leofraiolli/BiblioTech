@@ -1,0 +1,38 @@
+@model Livro
+@{
+    ViewData["Title"] = "Editar Livro";
+    var autores = ViewBag.Autores as List<Autor> ?? new List<Autor>();
+    var selecionados = Model.LivroAutores.Select(la => la.AutorId).ToHashSet();
+}
+<h2>Editar Livro</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Título da Obra</label>
+        <input type="text" asp-for="Titulo" required />
+    </div>
+    <div class="form-group">
+        <label>Código ISBN</label>
+        <input type="text" asp-for="Isbn" required />
+    </div>
+    <div class="form-group">
+        <label>Ano de Publicação</label>
+        <input type="number" asp-for="AnoPublicacao" required />
+    </div>
+    <div class="form-group">
+        <label>Quantidade de Exemplares Disponíveis</label>
+        <input type="number" asp-for="QuantidadeDisponivel" min="0" required />
+    </div>
+    <div class="form-group">
+        <label>Autores Vinculados (Relação N:N)</label>
+        @foreach (var autor in autores)
+        {
+            <div>
+                <input type="checkbox" name="autoresIds" value="@autor.Id" id="autor_@autor.Id" @(selecionados.Contains(autor.Id) ? "checked" : "") />
+                <label for="autor_@autor.Id" style="display:inline; font-weight:normal;">@autor.Nome</label>
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn">Atualizar Livro</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>

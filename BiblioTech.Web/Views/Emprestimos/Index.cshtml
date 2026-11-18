@@ -1,0 +1,39 @@
+@model List<Emprestimo>
+@{
+    ViewData["Title"] = "Empréstimos";
+}
+<h2>Controle de Empréstimos Escolares</h2>
+<a class="btn" asp-action="Create">+ Novo Empréstimo</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Livro</th>
+            <th>Matrícula</th>
+            <th>Aluno</th>
+            <th>Data Empréstimo</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@(emp.Livro?.Titulo ?? "N/A")</td>
+                <td>@emp.MatriculaAluno</td>
+                <td>@emp.NomeAluno</td>
+                <td>@emp.DataEmprestimo.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@(emp.Devolvido ? $"Devolvido em {emp.DataDevolucao:dd/MM/yyyy}" : "Em Aberto")</td>
+                <td>
+                    @if (!emp.Devolvido)
+                    {
+                        <form asp-action="Devolver" asp-route-id="@emp.Id" method="post">
+                            <button type="submit" class="btn">Registrar Devolução</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

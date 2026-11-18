@@ -1,0 +1,37 @@
+@model List<Livro>
+@{
+    ViewData["Title"] = "Acervo de Livros";
+}
+<h2>Acervo de Livros (Relacionamento N:N com Autores)</h2>
+<a class="btn" asp-action="Create">+ Cadastrar Livro</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>ISBN</th>
+            <th>Ano</th>
+            <th>Autores Vinculados (N:N)</th>
+            <th>Disponíveis</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var livro in Model)
+        {
+            <tr>
+                <td><strong>@livro.Titulo</strong></td>
+                <td>@livro.Isbn</td>
+                <td>@livro.AnoPublicacao</td>
+                <td>@livro.NomesAutores()</td>
+                <td>@livro.QuantidadeDisponivel un.</td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@livro.Id">Editar</a>
+                    <form asp-action="Delete" asp-route-id="@livro.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,28 @@
+@model List<Autor>
+@{
+    ViewData["Title"] = "Autores";
+}
+<h2>Autores Cadastrados</h2>
+<a class="btn" asp-action="Create">+ Novo Autor</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome do Autor</th>
+            <th>Nacionalidade</th>
+            <th>Obras Vinculadas (N:N)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var autor in Model)
+        {
+            <tr>
+                <td>@autor.Id</td>
+                <td>@autor.Nome</td>
+                <td>@autor.Nacionalidade</td>
+                <td>@autor.TotalObras() livro(s)</td>
+            </tr>
+        }
+    </tbody>
+</table>
